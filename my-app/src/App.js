@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Cell from "./components/cell"
 const App =() => {
   const [cells, setCells]=useState(["","","","","","","","",""])
@@ -11,7 +11,24 @@ const App =() => {
     [0,3,6], [1,4,7], [2,5,8],
     [0,4,8], [2,4,6]
     ]
+    winningCombos.forEach(array => {
+      let circleWins=array.every(cell => cells[cell]==="circle")
+      if (circleWins){
+        setWinningMessage("Circle wins!!")
+        return
+      }
+    })
+    winningCombos.forEach(array => {
+      let crossWins=array.every(cell => cells[cell]==="cross")
+      if (crossWins){
+        setWinningMessage("Cross wins!!")
+        return
+      }
+    })
   }
+  useEffect(() =>{
+    checkScore()
+  },[cells])
   return (
     <div className="app">
       <div className="gameboard">
@@ -24,6 +41,7 @@ const App =() => {
             setGo={setGo}
             cells={cells}
             setCells={setCells}
+            winningMessage={winningMessage}
           />
         )}
       </div>

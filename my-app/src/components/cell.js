@@ -1,7 +1,11 @@
-const Cell = ({id,cell,go,setGo,cells,setCells}) => {
+const Cell = ({id,cell,go,setGo,cells,setCells,winningMessage}) => {
     const handleClick=(e)=>{
         
-        const taken=e.target.firstChild.classList.contains("circle") || e.target.firstChild.classList.contains("cross")
+        if (!winningMessage){
+            const taken=e.target.firstChild?.classList.contains("circle") || 
+            e.target.firstChild?.classList.contains("cross")||
+            e.target.classList.contains("cross")||
+            e.target.classList.contains("circle")
         if(!taken){
             if(go==="circle"){
                 e.target.firstChild.classList.add("circle")
@@ -14,6 +18,7 @@ const Cell = ({id,cell,go,setGo,cells,setCells}) => {
                 setGo("circle")
 
             }
+        }
         }
     }
     const handleCellChange= (className)=>{
